@@ -1,7 +1,6 @@
-import "./categories.styles.scss";
-import CategoryItem from "./components/category-item/category-item.component";
+import CategoryContainer from "./components/categories-container/categories-container.component";
 function App() {
-  const categories = [
+    const categories = [
     {
       id: 1,
       title: "Bollería Dulce",
@@ -28,56 +27,8 @@ function App() {
       img: "./images/especiales.png",
     },
   ];
-  return (
-    <div className="categories-container">
-      {categories.map((category) => (
-        <CategoryItem key={category.id} category={ category } />
-      ))}
-    </div>
-  );
+
+  return <CategoryContainer categories= {categories}/>;
 }
 
 export default App;
-
-// <div class="category-container">
-//   {/* <img></img> */}
-//   <div className="category-body-container">
-//     <h2>Bollería Dulce</h2>
-//     <p>Comprar ahora!</p>
-//   </div>
-// </div>
-// <div class="category-container">
-//   {/* <img></img> */}
-//   <div className="category-body-container">
-//     <h2>Bollería Salada</h2>
-//     <p>Comprar ahora!</p>
-//   </div>
-// </div>
-// <div class="category-container">
-//   {/* <img></img> */}
-//   <div className="category-body-container">
-//     <h2>Panadería Industrial</h2>
-//     <p>Comprar ahora!</p>
-//   </div>
-// </div>
-// <div class="category-container">
-//   {/* <img></img> */}
-//   <div className="category-body-container">
-//     <h2>Productos de Temporada</h2>
-//     <p>Comprar ahora!</p>
-//   </div>
-// </div>
-// <div class="category-container">
-//   {/* <img></img> */}
-//   <div className="category-body-container">
-//     <h2>Snacks y Mini Bollería</h2>
-//     <p>Comprar ahora!</p>
-//   </div>
-// </div>
-// <div class="category-container">
-//   {/* <img></img> */}
-//   <div className="category-body-container">
-//     <h2>Productos Especiales</h2>
-//     <p>Comprar ahora!</p>
-//   </div>
-// </div>
