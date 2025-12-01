@@ -67,8 +67,8 @@ const SignInForm = () => {
 
   return (
     <div className='sign-up-container'>
-      <h2>Already have an account?</h2>
-      <span>Sign in with your email and password</span>
+      <h2>¿Ya tienes una cuenta?</h2>
+      <span>Inicia sesión con tu correo electrónico y contraseña</span>
       <form onSubmit={handleSubmit}>
         <FormInput
           label='Email'
@@ -88,9 +88,10 @@ const SignInForm = () => {
           value={password}
         />
         <div className='buttons-container'>
-          <Button type='submit'>Sign In</Button>
+          <Button type='submit'>Iniciar sesión
+</Button>
           <Button type='button' buttonType='google' onClick={signInWithGoogle}>
-            Google sign in
+            Iniciar sesión con Google
           </Button>
         </div>
       </form>
