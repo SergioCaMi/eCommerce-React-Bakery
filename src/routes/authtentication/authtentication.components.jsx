@@ -1,3 +1,21 @@
+// =====================================================
+// PÁGINA: AUTENTICACIÓN (AUTHENTICATION)
+// =====================================================
+// Esta es la página principal de autenticación que contiene:
+//   - Formulario de inicio de sesión (SignInForm)
+//   - Formulario de registro (SignUpForm)
+// 
+// INTERACCIÓN CON OTROS ARCHIVOS:
+//   1. SignInForm -> firebase.utils.js -> Firebase Auth/Firestore
+//   2. SignUpForm -> firebase.utils.js -> Firebase Auth/Firestore
+//   3. Ambos componentes comparten las mismas funciones de firebase.utils.js
+
+// =====================================================
+// CÓDIGO COMENTADO: MÉTODO DE AUTENTICACIÓN CON POPUP
+// =====================================================
+// Este código está comentado porque la funcionalidad de Google Sign-In
+// ahora está integrada dentro del componente SignInForm
+// Se deja como referencia para entender cómo funciona el popup
 // import {
 //   signInWithGooglePopup,
 //   createUserDocumentFromAuth,
@@ -14,7 +32,17 @@ import SignInForm from "../../components/sign-in-form/sign-in-form.component";
 
 const Authtentication = () => {
 
-  // ============ MÉTODO 1: POPUP ============
+  // =====================================================
+  // ESTRUCTURA DE LA PÁGINA
+  // =====================================================
+  // Esta página simplemente renderiza dos componentes lado a lado:
+  //   - SignInForm: Para usuarios que ya tienen cuenta
+  //   - SignUpForm: Para usuarios nuevos que quieren registrarse
+  // 
+  // Toda la lógica de autenticación está en los componentes hijos,
+  // manteniendo este componente simple y enfocado en el layout
+
+  // ============ MÉTODO 1: POPUP (COMENTADO) ============
   // Más simple y directo. Abre una ventana emergente de Google.
   // Retorna inmediatamente el usuario autenticado.
   // const logGoogleUser = async () => {
@@ -55,11 +83,25 @@ const Authtentication = () => {
 
   return (
     <div className="authentication-container">
+      {/* =====================================================
+          BOTONES DE AUTENTICACIÓN COMENTADOS
+          ===================================================== 
+          Estos botones están comentados porque ahora el botón
+          de Google Sign-In está integrado dentro de SignInForm
+          Se dejan como referencia de implementación alternativa
+      */}
       {/* <button onClick={logGoogleUser}>Sign in with Google Popup</button> */}
       {/* <button onClick={signInWithGoogleRedirect}>
         Sign in with Google Redirect
       </button> */}
+      
+      {/* =====================================================
+          COMPONENTES PRINCIPALES
+          ===================================================== */}
+      {/* SignInForm: Formulario de inicio de sesión (lado izquierdo) */}
       <SignInForm/>
+      
+      {/* SignUpForm: Formulario de registro (lado derecho) */}
       <SignUpForm/>
     </div>
   );

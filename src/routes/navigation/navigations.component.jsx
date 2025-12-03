@@ -13,8 +13,8 @@ const Navigation = () => {
             <img src={logoSrc} alt="Logo" className="logo" />
         </Link>
         <div className="nav-links-container">
-          <Link className='nav-link' to="/shop">TIENDA</Link>
-          <Link className='nav-link' to="/">CONTACTO</Link>
+          <Link className='nav-link' to="/">TIENDA</Link>
+          <Link className='nav-link' to="/contact">CONTACTO</Link>
           <Link className='nav-link' to="/auth">REGISTRARSE</Link>{" "}
         </div>
       </div>
