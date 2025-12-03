@@ -1,21 +1,28 @@
+// =====================================================
+// * IMPORTS *
+// =====================================================
 import {
   getAuth,
-  // signInWithRedirect,
   signInWithPopup,
+  signInWithRedirect,
   GoogleAuthProvider,
-  createUserWithEmailAndPassword, //Para usuarios mediante email y pass
-  signInWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut
 } from "firebase/auth";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
-// ---------------- From Firebase ----------------
-// Import the functions you need from the SDKs you need
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc
+} from "firebase/firestore";
+
 import { initializeApp } from "firebase/app";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
+// =====================================================
+// * CONFIGURACIÓN FIREBASE *
+// =====================================================
 const firebaseConfig = {
   apiKey: "AIzaSyBVrk03bcb0OnUm-xzwKCcQqxTywP__kpY",
   authDomain: "panaderia-0001.firebaseapp.com",
@@ -25,28 +32,39 @@ const firebaseConfig = {
   appId: "1:169276494460:web:7586b1a42c529fb878eff9",
 };
 
-// Initialize Firebase
+// Inicialización general
 const firebaseApp = initializeApp(firebaseConfig);
-// ----------------
 
-// Autenticación
-// Indicamos quién es el proveedor (GoogleAuthProvider, FacebookAuthProvider, etc...)
-const googleProvider = new GoogleAuthProvider();
-
-googleProvider.setCustomParameters({
-  prompt: "select_account",
-});
-
+// =====================================================
+// * INSTANCIAS *
+// =====================================================
 export const auth = getAuth(firebaseApp);
-export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
-// export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider); 
-export const db = getFirestore();
+export const db = getFirestore(firebaseApp);
 
-export const createUserDocumentFromAuth = async (userAuth, additionalInformation) => {
-    if (!userAuth) return;
+// Proveedor de Google
+const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: "select_account" });
+
+// =====================================================
+// * LOGIN CON GOOGLE *
+// =====================================================
+// Login con Popup
+export const signInWithGooglePopup = () =>
+  signInWithPopup(auth, googleProvider);
+
+// Login con Redirect (opción alternativa)
+export const signInWithGoogleRedirect = () =>
+  signInWithRedirect(auth, googleProvider);
+
+// =====================================================
+// * CREAR U OBTENER DOCUMENTO DE USUARIO *
+// =====================================================
+export const createUserDocumentFromAuth = async (userAuth, addInfo = {}) => {
+  if (!userAuth) return;
+
   const userDocRef = doc(db, "users", userAuth.uid);
-  console.log(userDocRef);
   const userSnapshot = await getDoc(userDocRef);
+
   if (!userSnapshot.exists()) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
@@ -56,21 +74,33 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInformation
         displayName,
         email,
         createdAt,
-        ...additionalInformation
+        ...addInfo,
       });
     } catch (error) {
-      console.log("error creating the user", error.message);
+      console.log("Error creando el usuario:", error.message);
     }
   }
+
   return userDocRef;
 };
 
-export const createUserWithEmailAndPasswordFunction = async(email, password) => {
-    if (!email || !password) return; 
-    return await createUserWithEmailAndPassword(auth, email, password);
-}
+// =====================================================
+// * REGISTRO CON EMAIL / PASSWORD *
+// =====================================================
+export const createUserWithEmailAndPasswordFunction = async (email, password) => {
+  if (!email || !password) return;
+  return await createUserWithEmailAndPassword(auth, email, password);
+};
 
-export const signInAuthUserWithEmailAndPassword = async(email, password) => {
-    if (!email || !password) return;
-    return await signInWithEmailAndPassword(auth, email, password);
-}
+// =====================================================
+// * LOGIN CON EMAIL / PASSWORD *
+// =====================================================
+export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+  return await signInWithEmailAndPassword(auth, email, password);
+};
+
+// =====================================================
+// * LOGOUT *
+// =====================================================
+export const signOutUser = async () => await signOut(auth);
