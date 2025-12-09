@@ -41,7 +41,6 @@ const SignInForm = () => {
 
 
   // Para usar el contexto
-const { setCurrentUser } = useContext(UserContext);
   // =====================================================
   // FUNCIÓN: RESETEAR FORMULARIO
   // =====================================================
@@ -66,7 +65,6 @@ const { setCurrentUser } = useContext(UserContext);
       // Guardamos/actualizamos los datos del usuario en Firestore
       // Si es la primera vez, crea el documento. Si ya existe, no hace nada.
       await createUserDocumentFromAuth(user);
-            setCurrentUser(user);
 
     } catch (error) {
       // MANEJO DE ERRORES
@@ -96,7 +94,6 @@ const { setCurrentUser } = useContext(UserContext);
         email,
         password
       );
-      setCurrentUser(user);
       
       // Si llegamos aquí, el inicio de sesión fue exitoso
       resetFormFields();
