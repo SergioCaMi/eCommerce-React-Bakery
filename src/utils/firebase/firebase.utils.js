@@ -8,15 +8,11 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut
+  signOut,
+  onAuthStateChanged, //Herramienta firebaswe para controlar sesiones
 } from "firebase/auth";
 
-import {
-  getFirestore,
-  doc,
-  getDoc,
-  setDoc
-} from "firebase/firestore";
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
 import { initializeApp } from "firebase/app";
 
@@ -87,7 +83,10 @@ export const createUserDocumentFromAuth = async (userAuth, addInfo = {}) => {
 // =====================================================
 // * REGISTRO CON EMAIL / PASSWORD *
 // =====================================================
-export const createUserWithEmailAndPasswordFunction = async (email, password) => {
+export const createUserWithEmailAndPasswordFunction = async (
+  email,
+  password
+) => {
   if (!email || !password) return;
   return await createUserWithEmailAndPassword(auth, email, password);
 };
@@ -104,3 +103,11 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 // * LOGOUT *
 // =====================================================
 export const signOutUser = async () => await signOut(auth);
+
+// =====================================================
+// * Herramienta de Firebase alternativa a la utilizada
+// para conntrolar sesiones *
+// =====================================================
+// variable que contiene la sesión, función que se llamará cada vez que cambie el estado
+export const onAuthStateChangedListener = (callback) =>
+  onAuthStateChanged(auth, callback);
