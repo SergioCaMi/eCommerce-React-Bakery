@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 
 import {BrowserRouter} from 'react-router-dom';
 import { UserProvider } from './components/context/user.context'; 
+import { ProductsProvider } from './components/context/products.context'; 
+import { CartProvider } from './components/context/cart.context';
 
 
 // Regla clave en JavaScript/React:
@@ -18,7 +20,11 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <UserProvider>
-        <App />
+        <ProductsProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </ProductsProvider>
       </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
