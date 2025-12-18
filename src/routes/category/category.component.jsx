@@ -12,9 +12,10 @@ const Category = () => {
     useEffect(() => {
         setProducts(categoriesMap[category]);
     }, [category, categoriesMap]);
+
     return (
         <div className='category-container'>
-            <h2 className='category-title'>{category.toUpperCase()}</h2>
+            <h2 className='category-title'>{category.toUpperCase().replace(/-/g, ' ')}</h2>
             <div className='category-products'>
                 {products && products.map((product) => (
                     <ProductCard key={product.id} product={product} />

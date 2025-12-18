@@ -4,7 +4,8 @@
 // Mantiene la tienda actual accesible para toda la app.
 
 import { createContext, useState, useEffect } from "react";
-import {getCategoriesAndDocuments} from "../../utils/firebase/firebase.utils.js";
+import {getCategoriesAndDocuments, addCollectionAndDocuments} from "../../utils/firebase/firebase.utils.js";
+import SHOP_DATA from '../../shop-data.js';
 
 // Estado inicial del contexto
 export const CategoryContext = createContext({
@@ -22,9 +23,10 @@ export const CategoriesProvider = ({ children }) => {
     };  
     getCategoriesMap();
   }, []);
-  // useEffect(() => {
-  //   addCollectionAndDocuments('categories', SHOP_DATA);
-  // }, [])  ; //Descomentar solo una vez para subir los datos a Firestore
+  // Si es la primera vez que se corre la app, descomentar para cargar los datos iniciales de SHOP_DATA a Firestore
+  useEffect(() => {
+    addCollectionAndDocuments('categories', SHOP_DATA);
+  }, []);
 
   const value = { categoriesMap };
   return <CategoryContext.Provider value={value}>{children}</CategoryContext.Provider>; //Creamos el proveedor del contexto con los productos cargados y todos sus hijos podrán acceder a ellos
