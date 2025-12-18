@@ -9,6 +9,7 @@ const Category = () => {
     const { category } = useParams();//Obtengo el parametro de la url
     const {categoriesMap} = useContext(CategoryContext);
     const [ products, setProducts ] = useState([]);
+    
     useEffect(() => {
         setProducts(categoriesMap[category]);
     }, [category, categoriesMap]);
